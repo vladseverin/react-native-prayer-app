@@ -1,5 +1,5 @@
 import { createMaterialTopTabNavigator } from 'react-navigation';
-import MyPrayers from './MyPrayers';
+import MyPrayers from '../../containers/MyPrayers';
 import Subscribed from './Subscribed';
 
 export default createMaterialTopTabNavigator(

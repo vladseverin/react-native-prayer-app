@@ -21,7 +21,8 @@ export default class Prayer extends Component {
       answeredContainer,
     } = styles;
     const { check } = this.state;
-    const { answered } = this.props;
+    const { answered, prayer } = this.props;
+    const totalAmount = prayer.amountOtherPrayered + prayer.amoutnAuthoPrayered;
 
     return (
       <SwipeRow 
@@ -40,14 +41,16 @@ export default class Prayer extends Component {
               onChange={() => this.setState({check: !check})}
               style={{marginRight: 13, marginLeft: 13,}}/>
             <Text style={answered ? answeredText : text}>
-              ViewInComponent 
+              {prayer.prayer} 
             </Text>
             <View style={amountWrapper}>
               <Image 
                 style={{width: 24, height: 24, resizeMode: 'center'}}
                 source={require('../../img/user.png')}
               />
-              <Text style={amount}>2</Text>
+              <Text style={amount}>
+                {prayer.members.length}
+              </Text>
             </View>
             <View style={amountWrapper}>
               <TouchableOpacity
@@ -57,7 +60,9 @@ export default class Prayer extends Component {
                   source={require('../../img/prayer.png')}
                 />
               </TouchableOpacity>
-              <Text style={amount}>254</Text>
+              <Text style={amount}>
+                {totalAmount}
+              </Text>
             </View>
           </View>
         }

@@ -9,13 +9,24 @@ export default class InputPrayer extends Component {
     this.state = {text: ''};
   }
 
+  onDoneKeyPress = () => {
+    const { text } = this.state;
+    const { handleAddPrayer } = this.props;
+
+    if(text) {
+      handleAddPrayer(text);
+      this.setState({text: ''});
+    }  
+  }
+
   render() {
     const { inputText, inputWrapper } = styles;
+    const { text } = this.state;
 
     return (
       <View style={inputWrapper}>
         <TouchableOpacity 
-          onPress={() => alert('GearTouched')} >
+          onPress={this.onDoneKeyPress} >
           <Image 
             source={require('../../img/Rectangle.png')}
             style={{margin: 13, height: 24, width: 24,}}
@@ -24,6 +35,8 @@ export default class InputPrayer extends Component {
         <TextInput
           style={inputText}
           onChangeText={(text) => this.setState({text})}
+          onSubmitEditing={this.onDoneKeyPress}
+          value={text}
           placeholder="Add a prayer..."/>
       </View>
     )

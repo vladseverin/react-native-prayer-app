@@ -17,14 +17,17 @@ export default class PrayerList extends Component {
   render() {
     const { isHidden } = this.state;
     const { container } = styles;
+    const { data } = this.props;
 
     return (
       <ScrollView style={container}>
-        <Prayer />
-        <Prayer />
-        <Prayer />
-        <Prayer />
-        <Prayer />
+        {data
+          .filter(prayer => !prayer.answered)
+          .map(item => (
+            <Prayer key={item.id} prayer={item}/>
+          ))
+        }
+
         <ButtonPrayers 
           handleClickBtn={this.handleClickBtn}
           text={
@@ -32,17 +35,19 @@ export default class PrayerList extends Component {
               ? 'Show Answered Prayers' 
               : 'Hide Answered Prayers'}
         />
-        {
-          !isHidden && (
-            <Fragment>
-              <Prayer answered={true}/>
-              <Prayer answered={true}/>
-              <Prayer answered={true}/>
-              <Prayer answered={true}/>
-              <Prayer answered={true}/>
-            </Fragment>
-          )
-        }
+
+        <Fragment>
+          {
+            !isHidden && data
+              .filter(prayer => prayer.answered)
+              .map(item => (
+                <Prayer 
+                  key={item.id} 
+                  answered={item.answered} 
+                  prayer={item}/>
+            ))
+          }
+        </Fragment>
       </ScrollView>
     )
   }
