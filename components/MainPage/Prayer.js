@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Text, View, StyleSheet, CheckBox, Image, TouchableOpacity } from 'react-native'
-import Icon from '../Icon';
+import { StyleSheet, CheckBox, Image, TouchableOpacity, Text } from 'react-native'
+import { SwipeRow, View, Button } from 'native-base';
+import SvgIcon from '../Icon';
+import { w } from '../../constants';
 
 export default class Prayer extends Component {
   constructor(props) {
@@ -15,49 +17,69 @@ export default class Prayer extends Component {
       amount,
       amountWrapper,
       answeredText,
+      swipeContainer
     } = styles;
     const { check } = this.state;
     const { answered } = this.props;
 
     return (
-      <View style={container} > 
-        <Icon 
-          name="Border" 
-          fill="#AC5253" 
-          width="3" 
-          height="23"/>
-        <CheckBox 
-          value={answered ? true : check}
-          disabled={answered ? true : false}
-          onChange={() => this.setState({check: !check})}
-          style={{marginRight: 13, marginLeft: 13,}}/>
-        <Text style={answered ? answeredText : text}>
-          ViewInComponent 
-        </Text>
-        <View style={amountWrapper}>
-          <Image 
-            style={{width: 24, height: 24, resizeMode: 'center'}}
-            source={require('../../img/user.png')}
-          />
-          <Text style={amount}>2</Text>
-        </View>
-        <View style={amountWrapper}>
-          <TouchableOpacity
-            onPress={() => alert('TouchPrayer')} >
-            <Image 
-              style={{width: 28, height: 28, resizeMode: 'center'}}
-              source={require('../../img/prayer.png')}
-            />
-          </TouchableOpacity>
-          <Text style={amount}>254</Text>
-        </View>
-      </View>
+      <SwipeRow 
+        rightOpenValue={-80}
+        style={swipeContainer}
+        body={
+          <View style={container}> 
+            <SvgIcon 
+              name="Border" 
+              fill="#AC5253" 
+              width="3" 
+              height="23"/>
+            <CheckBox 
+              value={answered ? true : check}
+              disabled={answered ? true : false}
+              onChange={() => this.setState({check: !check})}
+              style={{marginRight: 13, marginLeft: 13,}}/>
+            <Text style={answered ? answeredText : text}>
+              ViewInComponent 
+            </Text>
+            <View style={amountWrapper}>
+              <Image 
+                style={{width: 24, height: 24, resizeMode: 'center'}}
+                source={require('../../img/user.png')}
+              />
+              <Text style={amount}>2</Text>
+            </View>
+            <View style={amountWrapper}>
+              <TouchableOpacity
+                onPress={() => alert('TouchPrayer')} >
+                <Image 
+                  style={{width: 28, height: 28, resizeMode: 'center'}}
+                  source={require('../../img/prayer.png')}
+                />
+              </TouchableOpacity>
+              <Text style={amount}>254</Text>
+            </View>
+          </View>
+        }
+        right={
+          <Button danger onPress={() => alert('Trash')}>
+            <Text style={{color: '#fff',fontSize: 13,}}>Delete</Text>
+          </Button>
+        }
+      />
     )
   }
 }
 
 const styles = StyleSheet.create({
+  swipeContainer: {
+    alignSelf: 'stretch', 
+    borderBottomWidth: 0, 
+    paddingRight: 0, 
+    paddingBottom: 0, 
+    paddingTop: 0,
+  },
   container: {
+    width: w / 1.1, 
     flexDirection: 'row',
     height: 66,
     borderBottomWidth: 1,
@@ -91,3 +113,4 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   }
 });
+

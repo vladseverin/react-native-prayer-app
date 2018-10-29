@@ -21,5 +21,6 @@ export default createMaterialTopTabNavigator(
         backgroundColor: '#72A8BC',
       },
     },
+    swipeEnabled: false,
   }
 );
