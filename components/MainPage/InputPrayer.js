@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, TextInput, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { h, w } from '../../constants';
 import Icon from '../Icon';
 
@@ -16,12 +16,10 @@ export default class InputPrayer extends Component {
       <View style={inputWrapper}>
         <TouchableOpacity 
           onPress={() => alert('GearTouched')} >
-          <Icon 
-            style={{margin: 13}}
-            name="Gear" 
-            fill="#72A8BC" 
-            height="24" 
-            width="24"/>
+          <Image 
+            source={require('../../img/Rectangle.png')}
+            style={{margin: 13, height: 24, width: 24,}}
+          />
         </TouchableOpacity>
         <TextInput
           style={inputText}
@@ -40,6 +38,7 @@ const styles = StyleSheet.create({
     width: w / 1.1,
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 13,
   },
   inputText: {
     width: w / 1.3,
