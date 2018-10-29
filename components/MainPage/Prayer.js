@@ -17,7 +17,8 @@ export default class Prayer extends Component {
       amount,
       amountWrapper,
       answeredText,
-      swipeContainer
+      swipeContainer,
+      answeredContainer,
     } = styles;
     const { check } = this.state;
     const { answered } = this.props;
@@ -27,7 +28,7 @@ export default class Prayer extends Component {
         rightOpenValue={-80}
         style={swipeContainer}
         body={
-          <View style={container}> 
+          <View style={answered ? answeredContainer : container}> 
             <SvgIcon 
               name="Border" 
               fill="#AC5253" 
@@ -84,6 +85,17 @@ const styles = StyleSheet.create({
     height: 66,
     borderBottomWidth: 1,
     borderBottomColor: '#E5E5E5',
+    marginLeft: 16,
+    marginRight: 16,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  answeredContainer: {
+    width: w / 1.1, 
+    flexDirection: 'row',
+    height: 66,
+    borderTopWidth: 1,
+    borderTopColor: '#E5E5E5',
     marginLeft: 16,
     marginRight: 16,
     alignItems: 'center',
