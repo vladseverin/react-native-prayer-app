@@ -24,7 +24,7 @@ export const deletePrayer = (id) => {
 
 export const counterPrayer = (id) => {
   return {
-    type: COUNTER,
+    type: COUNTER_PRAYER,
     payload: id,
   }
 }
@@ -38,48 +38,20 @@ export const addAnsweredPrayer = (id) => {
 
 // INIT STATE
 const initialState = [
-  {
-    id: 0,
-    prayer: 'Prayer (text)',
-    answered: false,
-    date_created: '2018-10-29 18:35',
-    author: 'AuthorName',
-    amoutnAuthoPrayered: 5,
-    amountOtherPrayered: 1,
-    members: ['User1', 'User2', 'User3'],
-    comments: [
-      {name: 'User', text: 'Nice prayer'},
-      {name: 'AuthorName', text: 'Thanx'}
-    ],
-  },
-  {
-    id: 1,
-    prayer: 'Prayer 2 (text)',
-    answered: true,
-    date_created: '2018-10-29 18:35',
-    author: 'AuthorName',
-    amoutnAuthoPrayered: 5,
-    amountOtherPrayered: 1,
-    members: ['User1', 'User2', 'User3'],
-    comments: [
-      {name: 'User', text: 'Nice prayer'},
-      {name: 'AuthorName', text: 'Thanx'}
-    ],
-  },
-  {
-    id: 2,
-    prayer: 'Prayer 3 (text)',
-    answered: true,
-    date_created: '2018-10-29 18:35',
-    author: 'AuthorName',
-    amoutnAuthoPrayered: 5,
-    amountOtherPrayered: 1,
-    members: ['User1', 'User2', 'User3'],
-    comments: [
-      {name: 'User', text: 'Nice prayer'},
-      {name: 'AuthorName', text: 'Thanx'}
-    ],
-  }
+  // {
+  //   id: 0,
+  //   prayer: 'Prayer (text)',
+  //   answered: false,
+  //   date_created: '2018-10-29 18:35',
+  //   author: 'AuthorName',
+  //   amoutnAuthoPrayered: 5,
+  //   amountOtherPrayered: 1,
+  //   members: ['User1', 'User2', 'User3'],
+  //   comments: [
+  //     {name: 'User', text: 'Nice prayer'},
+  //     {name: 'AuthorName', text: 'Thanx'}
+  //   ],
+  // },
 ];
 
 // REDUCERS
@@ -93,7 +65,7 @@ const actionMap = {
         prayer: action.payload,
         date_created: moment().format('YYYY-MM-DD HH:mm'),
         author: 'Vladislav',
-        amoutnAuthoPrayered: 0,
+        amoutnAuthorPrayered: 0,
         amountOtherPrayered: 0,
         members: [],
         comments: [],
@@ -102,17 +74,34 @@ const actionMap = {
   },
   [DELETE_PRAYER]: (state, action) => {
     return [
-      ...state,
+      ...state
+        .filter(prayer => action.payload !== prayer.id),
     ]
   },
   [COUNTER_PRAYER]: (state, action) => {
     return [
-      ...state,
+      ...state
+        .map(prayer => (
+          action.payload === prayer.id
+            ? { 
+                ...prayer,
+                amoutnAuthorPrayered: prayer.amoutnAuthorPrayered + 1,
+              }
+            : prayer
+        ))
     ]
   },
   [ADD_ANSWERED_PRAYER]: (state, action) => {
     return [
-      ...state,
+      ...state
+        .map(prayer => (
+          action.payload === prayer.id
+            ? { 
+                ...prayer,
+                answered: true,
+              }
+            : prayer
+        ))
     ]
   },
 }

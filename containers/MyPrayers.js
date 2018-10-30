@@ -1,5 +1,10 @@
 import { bindActionCreators } from 'redux';
-import { addPrayer } from '../reducers/prayer';
+import { 
+  addPrayer, 
+  deletePrayer, 
+  counterPrayer,
+  addAnsweredPrayer,
+} from '../reducers/prayer';
 import MyPrayers from '../components/MainPage/MyPrayers';
 import { connect } from 'react-redux';
 
@@ -12,6 +17,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     addPrayer,
+    deletePrayer,
+    counterPrayer,
+    addAnsweredPrayer,
   }, dispatch)
 );
 

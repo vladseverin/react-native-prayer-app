@@ -6,13 +6,18 @@ import PrayerList from './PrayerList';
 export default class MyPrayers extends Component {
   render() {
     const { container } = styles;
-    const { addPrayer, prayerList } = this.props;
+    const { 
+      addPrayer, 
+      prayerList,
+    } = this.props;
 
-    console.log(prayerList);
     return (
       <View style={container}>
         <InputPrayer handleAddPrayer={addPrayer}/>
-        <PrayerList data={prayerList}/>  
+        <PrayerList 
+          data={prayerList}
+          {...this.props}
+        />  
       </View>
     )
   }

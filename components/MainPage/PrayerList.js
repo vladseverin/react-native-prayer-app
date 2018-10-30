@@ -21,10 +21,14 @@ export default class PrayerList extends Component {
 
     return (
       <ScrollView style={container}>
-        {data
+        {data.length !== 0 && data
           .filter(prayer => !prayer.answered)
           .map(item => (
-            <Prayer key={item.id} prayer={item}/>
+            <Prayer 
+              key={item.id} 
+              prayer={item}
+              {...this.props}
+            />
           ))
         }
 
@@ -38,13 +42,15 @@ export default class PrayerList extends Component {
 
         <Fragment>
           {
-            !isHidden && data
+            !isHidden && data.length !== 0 && data
               .filter(prayer => prayer.answered)
               .map(item => (
                 <Prayer 
                   key={item.id} 
                   answered={item.answered} 
-                  prayer={item}/>
+                  prayer={item}
+                  {...this.props}
+                />
             ))
           }
         </Fragment>

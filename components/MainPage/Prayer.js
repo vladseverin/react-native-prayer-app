@@ -10,6 +10,24 @@ export default class Prayer extends Component {
     this.state = { check: false }
   }
 
+  handlePressDeleteBtn = (id) => {
+    const { deletePrayer } = this.props;
+    deletePrayer(id);
+  }
+
+  handlePressPrayerBtn = (id) => {
+    const { counterPrayer } = this.props;
+    counterPrayer(id);
+  }
+
+  handleChangeAnswered = (id) => {
+    const { addAnsweredPrayer } = this.props;
+    const { check } = this.state;
+
+    this.setState({check: !check});
+    addAnsweredPrayer(id);
+  }
+
   render() {
     const {
       container,
@@ -20,9 +38,17 @@ export default class Prayer extends Component {
       swipeContainer,
       answeredContainer,
     } = styles;
+
+    const { 
+      answered, 
+      prayer,
+    } = this.props;
+
     const { check } = this.state;
-    const { answered, prayer } = this.props;
-    const totalAmount = prayer.amountOtherPrayered + prayer.amoutnAuthoPrayered;
+    const totalAmount = prayer.amountOtherPrayered + prayer.amoutnAuthorPrayered;
+    const textPrayer = prayer.prayer.length > 18
+      ? `${prayer.prayer.slice(0, 18)}...`
+      : prayer.prayer;
 
     return (
       <SwipeRow 
@@ -38,28 +64,39 @@ export default class Prayer extends Component {
             <CheckBox 
               value={answered ? true : check}
               disabled={answered ? true : false}
-              onChange={() => this.setState({check: !check})}
+              onChange={() => this.handleChangeAnswered(prayer.id)}
               style={{marginRight: 13, marginLeft: 13,}}/>
             <Text style={answered ? answeredText : text}>
-              {prayer.prayer} 
+              {textPrayer} 
             </Text>
+            {prayer.members.length !== 0 
+              && (
+                <View style={amountWrapper}>
+                  <Image 
+                    style={{width: 24, height: 24, resizeMode: 'center'}}
+                    source={require('../../img/user.png')}
+                  />
+                  <Text style={amount}>
+                    {prayer.members.length}
+                  </Text>
+                </View>
+              )
+            }
             <View style={amountWrapper}>
-              <Image 
-                style={{width: 24, height: 24, resizeMode: 'center'}}
-                source={require('../../img/user.png')}
-              />
-              <Text style={amount}>
-                {prayer.members.length}
-              </Text>
-            </View>
-            <View style={amountWrapper}>
-              <TouchableOpacity
-                onPress={() => alert('TouchPrayer')} >
-                <Image 
-                  style={{width: 28, height: 28, resizeMode: 'center'}}
-                  source={require('../../img/prayer.png')}
-                />
-              </TouchableOpacity>
+              {
+                answered
+                  ? <Image 
+                      style={{width: 28, height: 28, resizeMode: 'center'}}
+                      source={require('../../img/prayer.png')}
+                    />
+                  : <TouchableOpacity
+                      onPress={() => this.handlePressPrayerBtn(prayer.id)} >
+                      <Image 
+                        style={{width: 28, height: 28, resizeMode: 'center'}}
+                        source={require('../../img/prayer.png')}
+                      />
+                    </TouchableOpacity>
+              }
               <Text style={amount}>
                 {totalAmount}
               </Text>
@@ -67,7 +104,7 @@ export default class Prayer extends Component {
           </View>
         }
         right={
-          <Button danger onPress={() => alert('Trash')}>
+          <Button danger onPress={() => this.handlePressDeleteBtn(prayer.id)}>
             <Text style={{color: '#fff',fontSize: 13,}}>Delete</Text>
           </Button>
         }
