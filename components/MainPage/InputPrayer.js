@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { h, w } from '../../constants';
-import Icon from '../Icon';
+import { TextInput, View, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { w } from '../../constants';
 
 export default class InputPrayer extends Component {
   constructor(props) {

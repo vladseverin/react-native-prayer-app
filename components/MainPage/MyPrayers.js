@@ -25,9 +25,11 @@ export default class MyPrayers extends Component {
 
 const styles = StyleSheet.create({
   container: {  
+    flex: 1, 
+    backgroundColor: '#fff',
     justifyContent: 'center', 
     alignItems: 'center',
-    marginTop: 13,
-    marginBottom: 13,
+    paddingTop: 13,
+    paddingBottom: 13,
   }
 });

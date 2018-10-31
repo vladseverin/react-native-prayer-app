@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { store } from '../store/index';
-import MainPage from "./MainPage/MainPage";
+import NavigationStack from './NavigationStack';
 
 export default class App extends Component {
   render() {
@@ -10,7 +10,7 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <View style={container}> 
-          <MainPage />
+          <NavigationStack {...this.props}/>
         </View>
       </Provider>
     );

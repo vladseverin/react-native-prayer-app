@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, CheckBox, Image, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, CheckBox, Image, TouchableOpacity, Text, Alert } from 'react-native'
 import { SwipeRow, View, Button } from 'native-base';
 import SvgIcon from '../Icon';
 import { w } from '../../constants';
@@ -12,7 +12,11 @@ export default class Prayer extends Component {
 
   handlePressDeleteBtn = (id) => {
     const { deletePrayer } = this.props;
-    deletePrayer(id);
+    Alert.alert('Confirm please', 'Are you sure you want to delete this prayer item?',
+    [
+      {text: 'YES', onPress: () => deletePrayer(id)},
+      {text: 'NO', onPress: () => null, style: 'cancel'},
+    ]);    
   }
 
   handlePressPrayerBtn = (id) => {
@@ -50,58 +54,61 @@ export default class Prayer extends Component {
       ? `${prayer.prayer.slice(0, 18)}...`
       : prayer.prayer;
 
+    // console.log(this.props);
     return (
       <SwipeRow 
         rightOpenValue={-80}
         style={swipeContainer}
         body={
-          <View style={answered ? answeredContainer : container}> 
-            <SvgIcon 
-              name="Border" 
-              fill="#AC5253" 
-              width="3" 
-              height="23"/>
-            <CheckBox 
-              value={answered ? true : check}
-              disabled={answered ? true : false}
-              onChange={() => this.handleChangeAnswered(prayer.id)}
-              style={{marginRight: 13, marginLeft: 13,}}/>
-            <Text style={answered ? answeredText : text}>
-              {textPrayer} 
-            </Text>
-            {prayer.members.length !== 0 
-              && (
-                <View style={amountWrapper}>
-                  <Image 
-                    style={{width: 24, height: 24, resizeMode: 'center'}}
-                    source={require('../../img/user.png')}
-                  />
-                  <Text style={amount}>
-                    {prayer.members.length}
-                  </Text>
-                </View>
-              )
-            }
-            <View style={amountWrapper}>
-              {
-                answered
-                  ? <Image 
-                      style={{width: 28, height: 28, resizeMode: 'center'}}
-                      source={require('../../img/prayer.png')}
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Details')}>
+            <View style={answered ? answeredContainer : container}> 
+              <SvgIcon 
+                name="Border" 
+                fill="#AC5253" 
+                width="3" 
+                height="23"/>
+              <CheckBox 
+                value={answered ? true : check}
+                disabled={answered ? true : false}
+                onChange={() => this.handleChangeAnswered(prayer.id)}
+                style={{marginRight: 13, marginLeft: 13,}}/>
+              <Text style={answered ? answeredText : text}>
+                {textPrayer} 
+              </Text>
+              {prayer.members.length !== 0 
+                && (
+                  <View style={amountWrapper}>
+                    <Image 
+                      style={{width: 24, height: 24, resizeMode: 'center'}}
+                      source={require('../../img/user.png')}
                     />
-                  : <TouchableOpacity
-                      onPress={() => this.handlePressPrayerBtn(prayer.id)} >
-                      <Image 
+                    <Text style={amount}>
+                      {prayer.members.length}
+                    </Text>
+                  </View>
+                )
+              }
+              <View style={amountWrapper}>
+                {
+                  answered
+                    ? <Image 
                         style={{width: 28, height: 28, resizeMode: 'center'}}
                         source={require('../../img/prayer.png')}
                       />
-                    </TouchableOpacity>
-              }
-              <Text style={amount}>
-                {totalAmount}
-              </Text>
+                    : <TouchableOpacity
+                        onPress={() => this.handlePressPrayerBtn(prayer.id)} >
+                        <Image 
+                          style={{width: 28, height: 28, resizeMode: 'center'}}
+                          source={require('../../img/prayer.png')}
+                        />
+                      </TouchableOpacity>
+                }
+                <Text style={amount}>
+                  {totalAmount}
+                </Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
         }
         right={
           <Button danger onPress={() => this.handlePressDeleteBtn(prayer.id)}>

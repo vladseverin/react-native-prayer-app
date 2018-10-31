@@ -12,6 +12,7 @@ export default class PrayerList extends Component {
   handleClickBtn = () => {
     const { isHidden } = this.state;
     this.setState({ isHidden: !isHidden });
+    // this.props.navigation.navigate('Details');
   }
 
   render() {
