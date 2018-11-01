@@ -63,7 +63,7 @@ const actionMap = {
         id: uuidv1(),
         answered: false,
         prayer: action.payload,
-        date_created: moment().format('YYYY-MM-DD HH:mm'),
+        date_created: moment().format('YYYY-MM-DD HH:mm:ss'),
         author: 'Vladislav',
         amoutnAuthorPrayered: 0,
         amountOtherPrayered: 0,
@@ -86,6 +86,7 @@ const actionMap = {
             ? { 
                 ...prayer,
                 amoutnAuthorPrayered: prayer.amoutnAuthorPrayered + 1,
+                lastPrayer: moment().format('YYYY-MM-DD HH:mm:ss'),
               }
             : prayer
         ))

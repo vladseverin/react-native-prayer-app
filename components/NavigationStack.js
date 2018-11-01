@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import MyPrayers from '../containers/MyPrayers';
 import Subscribed from './MainPage/Subscribed';
-import DetailsPage from './DetailsPage/DetailsPage';
+import DetailsPage from '../containers/DetailsPage';
 import Header from './MainPage/Header'
 
 const Tabs = createMaterialTopTabNavigator(

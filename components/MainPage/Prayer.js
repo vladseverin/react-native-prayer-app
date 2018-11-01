@@ -54,13 +54,19 @@ export default class Prayer extends Component {
       ? `${prayer.prayer.slice(0, 18)}...`
       : prayer.prayer;
 
-    // console.log(this.props);
     return (
       <SwipeRow 
         rightOpenValue={-80}
         style={swipeContainer}
         body={
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Details')}>
+          <TouchableOpacity 
+            onPress={() => (
+              this.props.navigation.navigate('Details', {
+                prayerId: prayer.id,
+                handlePressPrayerBtn: () => this.handlePressPrayerBtn(prayer.id),
+              }
+            ))}
+          >
             <View style={answered ? answeredContainer : container}> 
               <SvgIcon 
                 name="Border" 
