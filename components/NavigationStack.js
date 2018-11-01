@@ -40,7 +40,9 @@ export default createStackNavigator(
         animationEnabled: true,
       } 
     },
-    Details: { screen: DetailsPage },
+    Details: { 
+      screen: DetailsPage,
+    },
   }, 
   {
     initialRouteName: 'Home',
