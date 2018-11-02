@@ -5,6 +5,14 @@ import PrayerButton from './PrayerButton';
 import SvgIcon from '../Icon';
 
 export default class DetailsPage extends Component {
+  constructor(props){
+    super(props);
+    const prayerId = props.navigation.getParam('prayerId');
+    this.props.navigation.setParams({
+      counterPrayer: () => this.props.counterPrayer(prayerId),
+    }); 
+  }
+
   static navigationOptions = (props) => {
     const { params } = props.navigation.state;
 
@@ -14,7 +22,7 @@ export default class DetailsPage extends Component {
         elevation: 0   
       },
       headerRight: (
-        <PrayerButton data={params}/>
+        <PrayerButton handlePressOnPrayer={params.counterPrayer} {...params}/>
       ),
       headerTintColor: '#fff',
       style: { elevation: 0 },

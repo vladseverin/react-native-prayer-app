@@ -4,11 +4,11 @@ import { Image, TouchableOpacity, StyleSheet } from 'react-native'
 export default class PrayerButton extends Component {
   render() {
     const { prayerIco } = styles;
-    const { data } = this.props;
 
+    const { handlePressOnPrayer } = this.props;
     return (
       <TouchableOpacity
-        onPress={data.handlePressPrayerBtn} >
+        onPress={handlePressOnPrayer} >
         <Image 
           style={[prayerIco, {tintColor: '#fff'}]}
           fill="red"
