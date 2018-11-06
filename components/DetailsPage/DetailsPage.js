@@ -131,7 +131,13 @@ export default class DetailsPage extends Component {
             <Text style={[titleText, {paddingLeft: 15}]}>COMMENTS</Text>
             {
               prayerItem.comments.map((item, id) => (
-                <View style={messageBlock} key={id}>
+                <View 
+                  key={id}
+                  style={
+                    id === prayerItem.comments.length - 1 
+                      ? [messageBlock, {borderTopWidth: 0}] 
+                      : messageBlock
+                }>
                   <Image 
                     source={{ uri: item.img}}
                     style={[avatar, {width: 46, height: 46}]}
