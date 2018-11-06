@@ -194,6 +194,7 @@ export default class DetailsPage extends Component {
               value={this.state.message}
               onSubmitEditing={() => this.handleDoneSendMessage(prayerId)}
               style={messageInput}
+              blurOnSubmit={false}
             />
           </View>
         </ScrollView>
