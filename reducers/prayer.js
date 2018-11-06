@@ -6,6 +6,7 @@ const ADD_PRAYER = 'ADD_PRAYER';
 const DELETE_PRAYER = 'DELETE_PRAYER';
 const COUNTER_PRAYER = 'COUNTER_PRAYER';
 const ADD_ANSWERED_PRAYER = 'ADD_ANSWERED_PRAYER';
+const ADD_COMMENT = 'ADD_COMMENT';
 
 // ACTION CREATORS
 export const addPrayer = (text) => {
@@ -33,6 +34,13 @@ export const addAnsweredPrayer = (id) => {
   return {
     type: ADD_ANSWERED_PRAYER,
     payload: id,
+  }
+}
+
+export const addComment = (id, text) => {
+  return {
+    type: ADD_COMMENT,
+    payload: {id, text},
   }
 }
 
@@ -89,6 +97,26 @@ const actionMap = {
         ))
     ]
   },
+  [ADD_COMMENT]: (state, action) => {
+    return [
+      ...state.map(
+        prayer => action.payload.id === prayer.id
+          ? {
+              ...prayer,
+              comments: [
+                ...prayer.comments,
+                {
+                  name: 'Author',
+                  text: action.payload.text,
+                  datePublished: moment().format('YYYY-MM-DD HH:mm:ss'),
+                  img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg',
+                }
+              ]
+            }
+          : prayer,
+      )
+    ]
+  }
 }
 
 export default function prayer(state = [], action) {

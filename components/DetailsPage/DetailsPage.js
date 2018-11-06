@@ -1,9 +1,18 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { 
+  Text, 
+  View, 
+  StyleSheet, 
+  Image, 
+  TouchableOpacity, 
+  ScrollView,
+  TextInput,  
+} from 'react-native';
 import moment from 'moment';
 import PrayerButton from './PrayerButton';
 import SvgIcon from '../Icon';
 import { w, h } from '../../constants';
+import { Row } from 'native-base';
 
 export default class DetailsPage extends Component {
   constructor(props){
@@ -12,6 +21,10 @@ export default class DetailsPage extends Component {
     this.props.navigation.setParams({
       counterPrayer: () => this.props.counterPrayer(prayerId),
     }); 
+
+    this.state = {
+      message: '',
+    }
   }
 
   static navigationOptions = (props) => {
@@ -28,6 +41,16 @@ export default class DetailsPage extends Component {
       headerTintColor: '#fff',
       style: { elevation: 0 },
     }
+  }
+
+  handleDoneSendMessage = (id) => {
+    const { message } = this.state;
+    const { addComment } = this.props;
+
+    if ( !message ) return null;
+
+    addComment(id, message);
+    this.setState({message: ''})
   }
 
   render() {
@@ -53,6 +76,8 @@ export default class DetailsPage extends Component {
       userNameStyle,
       userMessageStyle,
       sendTimeMessage,
+      messageInput,
+      sendMessageBlock
     } = styles;
 
     const { navigation, prayerList } = this.props;
@@ -66,7 +91,8 @@ export default class DetailsPage extends Component {
         <View style={header}>
           <Text style={textHeader}>{prayerItem.prayer}</Text>
         </View>
-        <ScrollView style={{marginBottom: 20}}>
+        <ScrollView style={{marginBottom: 5}}>
+          {/* last time prayed */}
           <View style={lastPrayer}>
             <SvgIcon 
               style={svgBorder}
@@ -82,6 +108,8 @@ export default class DetailsPage extends Component {
               }
             </Text>
           </View>
+
+          {/* deteail dashbord */}
           <View style={detailInfo}>
             <View style={[detaiBlock, {borderRightWidth: 1, borderBottomWidth: 1}]}>
               <Text style={[mainText, {fontWeight: '100'}]}>
@@ -105,6 +133,8 @@ export default class DetailsPage extends Component {
               <Text style={descriptionText}>Times Prayed by Others</Text>
             </View>
           </View>
+
+          {/* members list */}
           <View style={addMembersBlock}>
             <Text style={titleText}>MEMBERS</Text>
             <View style={users}>
@@ -127,6 +157,7 @@ export default class DetailsPage extends Component {
             </View>
           </View>
 
+          {/* comment list */}
           <View>
             <Text style={[titleText, {paddingLeft: 15}]}>COMMENTS</Text>
             {
@@ -135,7 +166,7 @@ export default class DetailsPage extends Component {
                   key={id}
                   style={
                     id === prayerItem.comments.length - 1 
-                      ? [messageBlock, {borderTopWidth: 0}] 
+                      ? [messageBlock, {borderBottomWidth: 1}] 
                       : messageBlock
                 }>
                   <Image 
@@ -152,6 +183,19 @@ export default class DetailsPage extends Component {
             }
           </View>
 
+          {/* send comment block */}
+          <View style={sendMessageBlock}>
+            <Image 
+              style={{width: 20, height: 20, margin: 15}}
+              source={require('../../img/ico-message.png')}/>
+            <TextInput 
+              placeholder="Add a comment..."
+              onChangeText={message => this.setState({message})}
+              value={this.state.message}
+              onSubmitEditing={() => this.handleDoneSendMessage(prayerId)}
+              style={messageInput}
+            />
+          </View>
         </ScrollView>
       </View>
     )
@@ -248,7 +292,6 @@ const styles = StyleSheet.create({
   messageBlock: {
     width: w,
     minHeight: 74,
-    borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: '#E5E5E5',
     flexDirection: 'row',
@@ -270,12 +313,23 @@ const styles = StyleSheet.create({
     fontSize: 17, 
     color: '#514D47', 
     fontFamily: 'SF UI Text', 
-    fontWeight: '300'
+    fontWeight: '300',
+    width: w / 1.25,
   },
   sendTimeMessage: {
     alignSelf: 'flex-start', 
     color: '#9C9C9C', 
     fontSize: 13,
     marginLeft: 'auto',
+  },
+  messageInput: {
+    fontSize: 17,
+    flex: 1,
+    marginRight: 10,
+  },
+  sendMessageBlock: {
+    flexDirection: 'row',
+    justifyContent: "flex-start",
+    alignItems: 'center',
   }
 });
