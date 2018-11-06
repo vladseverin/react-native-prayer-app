@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import moment from 'moment';
 import PrayerButton from './PrayerButton';
 import SvgIcon from '../Icon';
@@ -46,8 +46,13 @@ export default class DetailsPage extends Component {
       user,
       users,
       avatar,
-      members,
+      titleText,
       addMembersBlock,
+      messageBlock,
+      userNameBlock,
+      userNameStyle,
+      userMessageStyle,
+      sendTimeMessage,
     } = styles;
 
     const { navigation, prayerList } = this.props;
@@ -61,67 +66,87 @@ export default class DetailsPage extends Component {
         <View style={header}>
           <Text style={textHeader}>{prayerItem.prayer}</Text>
         </View>
-        <View style={lastPrayer}>
-          <SvgIcon 
-            style={svgBorder}
-            name="Border" 
-            fill="#AC5253" 
-            width="3" 
-            height="23"/>
-          <Text style={lastPrayerText}>
+        <ScrollView style={{marginBottom: 20}}>
+          <View style={lastPrayer}>
+            <SvgIcon 
+              style={svgBorder}
+              name="Border" 
+              fill="#AC5253" 
+              width="3" 
+              height="23"/>
+            <Text style={lastPrayerText}>
+              {
+                prayerItem.lastPrayer 
+                  ? `Last prayed ${moment(prayerItem.lastPrayer).fromNow()}` 
+                  : 'Not have a prayers'
+              }
+            </Text>
+          </View>
+          <View style={detailInfo}>
+            <View style={[detaiBlock, {borderRightWidth: 1, borderBottomWidth: 1}]}>
+              <Text style={[mainText, {fontWeight: '100'}]}>
+                {moment(prayerItem.date_created).format('MMMM D YYYY')}
+              </Text>
+              <Text style={descriptionText}>Date Added</Text>
+              <Text style={otherText}>
+                Opened for {moment(prayerItem.date_created).fromNow(true)}
+              </Text>
+            </View>
+            <View style={[detaiBlock, {borderBottomWidth: 1}]}>
+              <Text style={mainText}>{totalAmount}</Text>
+              <Text style={descriptionText}>Times Prayed Total</Text>
+            </View>
+            <View style={[detaiBlock, {borderRightWidth: 1, borderBottomWidth: 1}]}>
+              <Text style={mainText}>{prayerItem.amoutnAuthorPrayered}</Text>
+              <Text style={descriptionText}>Times Prayed by Me</Text>
+            </View>
+            <View style={[detaiBlock, {borderBottomWidth: 1}]}>
+              <Text style={mainText}>{prayerItem.amountOtherPrayered}</Text>
+              <Text style={descriptionText}>Times Prayed by Others</Text>
+            </View>
+          </View>
+          <View style={addMembersBlock}>
+            <Text style={titleText}>MEMBERS</Text>
+            <View style={users}>
             {
-              prayerItem.lastPrayer 
-                ? `Last prayed ${moment(prayerItem.lastPrayer).fromNow()}` 
-                : 'Not have a prayers'
+              prayerItem.members.map((item, id) => (
+                <View style={user} key={id}>
+                  <Image 
+                    style={avatar}
+                    source={{uri: item.img}}
+                  />
+                  <Text>{item.name}</Text>
+                </View>
+              ))
             }
-          </Text>
-        </View>
-        <View style={detailInfo}>
-          <View style={[detaiBlock, {borderRightWidth: 1, borderBottomWidth: 1}]}>
-            <Text style={[mainText, {fontWeight: '100'}]}>
-              {moment(prayerItem.date_created).format('MMMM D YYYY')}
-            </Text>
-            <Text style={descriptionText}>Date Added</Text>
-            <Text style={otherText}>
-              Opened for {moment(prayerItem.date_created).fromNow(true)}
-            </Text>
-          </View>
-          <View style={[detaiBlock, {borderBottomWidth: 1}]}>
-            <Text style={mainText}>{totalAmount}</Text>
-            <Text style={descriptionText}>Times Prayed Total</Text>
-          </View>
-          <View style={[detaiBlock, {borderRightWidth: 1, borderBottomWidth: 1}]}>
-            <Text style={mainText}>{prayerItem.amoutnAuthorPrayered}</Text>
-            <Text style={descriptionText}>Times Prayed by Me</Text>
-          </View>
-          <View style={[detaiBlock, {borderBottomWidth: 1}]}>
-            <Text style={mainText}>{prayerItem.amountOtherPrayered}</Text>
-            <Text style={descriptionText}>Times Prayed by Others</Text>
-          </View>
-        </View>
-        <View style={addMembersBlock}>
-          <Text style={members}>MEMBERS</Text>
-          <View style={users}>
-          {
-            prayerItem.members.map((item, id) => (
-              <View style={user} key={id}>
+              <TouchableOpacity onPress={() => alert('click')}>
                 <Image 
-                  style={avatar}
-                  source={{uri: item.img}}
-                />
-                <Text>{item.name}</Text>
-              </View>
-            ))
-          }
-            <TouchableOpacity onPress={() => alert('click')}>
-              <Image 
-                style={{width: 38, height: 36, resizeMode: 'center'}} 
-                source={require('../../img/add.png')} />
-            </TouchableOpacity>
+                  style={{width: 38, height: 36, resizeMode: 'center'}} 
+                  source={require('../../img/add.png')} />
+              </TouchableOpacity>
+            </View>
           </View>
 
+          <View>
+            <Text style={[titleText, {paddingLeft: 15}]}>COMMENTS</Text>
+            {
+              prayerItem.comments.map((item, id) => (
+                <View style={messageBlock} key={id}>
+                  <Image 
+                    source={{ uri: item.img}}
+                    style={[avatar, {width: 46, height: 46}]}
+                  />
+                  <View style={userNameBlock}>
+                    <Text style={userNameStyle}>{item.name}</Text>
+                    <Text style={userMessageStyle}>{item.text}</Text>
+                  </View>
+                  <Text style={sendTimeMessage}>{moment(item.datePublished).fromNow()}</Text>
+                </View>
+              ))
+            }
+          </View>
 
-        </View>
+        </ScrollView>
       </View>
     )
   }
@@ -207,11 +232,44 @@ const styles = StyleSheet.create({
     height: 36,
     borderRadius: 50
   },
-  members: {
+  titleText: {
     color: '#72A8BC',
     marginBottom: 13,
   },
   addMembersBlock: {
     padding: 15,
+  },
+  messageBlock: {
+    width: w,
+    minHeight: 74,
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: '#E5E5E5',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    padding: 15,
+  },
+  userNameBlock: {
+    marginLeft: 9, 
+    marginRight: 9
+  },
+  userNameStyle: {
+    fontSize: 17, 
+    color: '#514d47', 
+    fontFamily: 'SF UI Text', 
+    fontWeight: 'bold'
+  },
+  userMessageStyle: {
+    fontSize: 17, 
+    color: '#514D47', 
+    fontFamily: 'SF UI Text', 
+    fontWeight: '300'
+  },
+  sendTimeMessage: {
+    alignSelf: 'flex-start', 
+    color: '#9C9C9C', 
+    fontSize: 13,
+    marginLeft: 'auto',
   }
 });

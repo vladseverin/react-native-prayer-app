@@ -17,8 +17,8 @@ const data = {
         {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
       ],
       comments: [
-        {name: 'User', text: 'Nice prayer'},
-        {name: 'AuthorName', text: 'Thanx'}
+        {name: 'User1', text: 'Hey!', datePublished: '2018-10-29 18:40', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'},
+        {name: 'AuthorName', text: 'How u doing?', datePublished: '2018-10-29 18:55', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'}
       ],
     },
     {
@@ -35,8 +35,8 @@ const data = {
         {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
       ],
       comments: [
-        {name: 'User', text: 'Nice prayer'},
-        {name: 'AuthorName', text: 'Thanx'}
+        {name: 'User1', text: 'Hey!', datePublished: '2018-10-29 18:40', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'},
+        {name: 'AuthorName', text: 'How u doing?', datePublished: '2018-10-29 18:55', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'}
       ],
     },
     {
@@ -53,8 +53,8 @@ const data = {
         {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
       ],
       comments: [
-        {name: 'User', text: 'Nice prayer'},
-        {name: 'AuthorName', text: 'Thanx'}
+        {name: 'User1', text: 'Hey!', datePublished: '2018-10-29 18:40', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'},
+        {name: 'AuthorName', text: 'How u doing?', datePublished: '2018-10-29 18:55', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'}
       ],
     },
     {
@@ -71,8 +71,8 @@ const data = {
         {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
       ],
       comments: [
-        {name: 'User', text: 'Nice prayer'},
-        {name: 'AuthorName', text: 'Thanx'}
+        {name: 'User1', text: 'Hey!', datePublished: '2018-10-29 18:40', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'},
+        {name: 'AuthorName', text: 'How u doing?', datePublished: '2018-10-29 18:55', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'}
       ],
     }
   ]
