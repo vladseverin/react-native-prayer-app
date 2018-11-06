@@ -24,6 +24,7 @@ export default class PrayerList extends Component {
       <ScrollView style={container}>
         {data.length !== 0 && data
           .filter(prayer => !prayer.answered)
+          .reverse()
           .map(item => (
             <Prayer 
               key={item.id} 
@@ -45,6 +46,7 @@ export default class PrayerList extends Component {
           {
             !isHidden && data.length !== 0 && data
               .filter(prayer => prayer.answered)
+              .reverse()
               .map(item => (
                 <Prayer 
                   key={item.id} 
