@@ -36,24 +36,6 @@ export const addAnsweredPrayer = (id) => {
   }
 }
 
-// INIT STATE
-const initialState = [
-  // {
-  //   id: 0,
-  //   prayer: 'Prayer (text)',
-  //   answered: false,
-  //   date_created: '2018-10-29 18:35',
-  //   author: 'AuthorName',
-  //   amoutnAuthoPrayered: 5,
-  //   amountOtherPrayered: 1,
-  //   members: ['User1', 'User2', 'User3'],
-  //   comments: [
-  //     {name: 'User', text: 'Nice prayer'},
-  //     {name: 'AuthorName', text: 'Thanx'}
-  //   ],
-  // },
-];
-
 // REDUCERS
 const actionMap = {
   [ADD_PRAYER]: (state, action) => {
@@ -67,7 +49,9 @@ const actionMap = {
         author: 'Vladislav',
         amoutnAuthorPrayered: 0,
         amountOtherPrayered: 0,
-        members: [],
+        members:  [
+          {name: 'Author', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'},
+        ],
         comments: [],
       }
     ]
@@ -107,7 +91,7 @@ const actionMap = {
   },
 }
 
-export default function prayer(state = initialState, action) {
+export default function prayer(state = [], action) {
   const reduceFn = actionMap[action.type];
   return reduceFn ? reduceFn(state, action) : state;
 }

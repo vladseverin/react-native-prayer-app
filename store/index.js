@@ -12,7 +12,10 @@ const data = {
       lastPrayer: '2018-10-29 18:35',
       amoutnAuthorPrayered: 5,
       amountOtherPrayered: 1,
-      members: ['User1', 'User2', 'User3'],
+      members: [
+        {name: 'Author', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'},
+        {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
+      ],
       comments: [
         {name: 'User', text: 'Nice prayer'},
         {name: 'AuthorName', text: 'Thanx'}
@@ -27,7 +30,10 @@ const data = {
       lastPrayer: '2018-10-29 18:35',
       amoutnAuthorPrayered: 5,
       amountOtherPrayered: 1,
-      members: ['User1', 'User2', 'User3'],
+      members: [
+        {name: 'Author', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'},
+        {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
+      ],
       comments: [
         {name: 'User', text: 'Nice prayer'},
         {name: 'AuthorName', text: 'Thanx'}
@@ -42,7 +48,10 @@ const data = {
       author: 'AuthorName',
       amoutnAuthorPrayered: 5,
       amountOtherPrayered: 1,
-      members: ['User1', 'User2', 'User3'],
+      members: [
+        {name: 'Author', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'},
+        {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
+      ],
       comments: [
         {name: 'User', text: 'Nice prayer'},
         {name: 'AuthorName', text: 'Thanx'}
@@ -57,7 +66,10 @@ const data = {
       author: 'AuthorName',
       amoutnAuthorPrayered: 5,
       amountOtherPrayered: 1,
-      members: ['User1', 'User2', 'User3'],
+      members: [
+        {name: 'Author', img: 'https://wrappixel.com/demos/admin-templates/pixeladmin/plugins/images/users/1.jpg'},
+        {name: 'User1', img: 'https://www.soccercric.com/uploads/news/images/1309164275952e2e897191.png'}
+      ],
       comments: [
         {name: 'User', text: 'Nice prayer'},
         {name: 'AuthorName', text: 'Thanx'}

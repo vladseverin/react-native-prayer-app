@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import moment from 'moment';
 import PrayerButton from './PrayerButton';
 import SvgIcon from '../Icon';
@@ -43,6 +43,11 @@ export default class DetailsPage extends Component {
       descriptionText,
       otherText,
       detaiBlock,
+      user,
+      users,
+      avatar,
+      members,
+      addMembersBlock,
     } = styles;
 
     const { navigation, prayerList } = this.props;
@@ -93,6 +98,29 @@ export default class DetailsPage extends Component {
             <Text style={mainText}>{prayerItem.amountOtherPrayered}</Text>
             <Text style={descriptionText}>Times Prayed by Others</Text>
           </View>
+        </View>
+        <View style={addMembersBlock}>
+          <Text style={members}>MEMBERS</Text>
+          <View style={users}>
+          {
+            prayerItem.members.map((item, id) => (
+              <View style={user} key={id}>
+                <Image 
+                  style={avatar}
+                  source={{uri: item.img}}
+                />
+                <Text>{item.name}</Text>
+              </View>
+            ))
+          }
+            <TouchableOpacity onPress={() => alert('click')}>
+              <Image 
+                style={{width: 38, height: 36, resizeMode: 'center'}} 
+                source={require('../../img/add.png')} />
+            </TouchableOpacity>
+          </View>
+
+
         </View>
       </View>
     )
@@ -164,4 +192,26 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     borderColor: '#E5E5E5',
   },
+  user: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 13,
+  },
+  users: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
+  },
+  avatar: {
+    width: 38, 
+    height: 36,
+    borderRadius: 50
+  },
+  members: {
+    color: '#72A8BC',
+    marginBottom: 13,
+  },
+  addMembersBlock: {
+    padding: 15,
+  }
 });
