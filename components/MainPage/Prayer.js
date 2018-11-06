@@ -63,7 +63,6 @@ export default class Prayer extends Component {
             onPress={() => (
               this.props.navigation.navigate('Details', {
                 prayerId: prayer.id,
-                // handlePressPrayerBtn: () => this.handlePressPrayerBtn(prayer.id),
               }
             ))}
           >
